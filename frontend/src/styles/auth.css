@@ -1,0 +1,23 @@
+.login-container {
+    background-color: rgb(30, 30, 48);
+    height: 80vh auto;
+    margin-top: 10vh;
+    color: white;
+    border-radius: 2%;
+    overflow: auto;
+}
+.register-container {
+    background-color: rgb(30, 30, 48);
+    height: 90vh;
+    margin-top: 5vh;
+    color: white;
+    border-radius: 2%;
+}
+
+.form-box {
+    margin-top: 5%;
+}
+.error {
+    color:red;
+    font-size: 0.8em;
+}
