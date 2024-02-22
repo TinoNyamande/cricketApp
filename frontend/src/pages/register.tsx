@@ -1,25 +1,22 @@
 import { AccountCircle } from "@mui/icons-material";
 import LockIcon from '@mui/icons-material/Lock';
-import { Box, Button, TextField, CircularProgress, Typography, Modal, Divider } from "@mui/material";
+import { Box, Button, TextField, CircularProgress, Typography, Alert, AlertTitle } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css"
-import "./../../../styles/auth.css"
 import EmailIcon from '@mui/icons-material/Email';
 import { useState } from "react";
 import React from "react";
 import Cookies from "js-cookie"
-import { useAuth } from "../../context/authProvider";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
-interface RegisterProps {
-    closeModal: () => void;
-}
 
-export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
-    const { login } = useAuth();
+export const Register = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [isMessageModalOpen, setisMessageModalOpen] = useState(false);
-    const [modalTitle, setModalTitle] = useState("");
-    const [modalMessage, setModalMessage] = useState("");
-    const [modalStyle, setModalStyle] = useState({})
+    const [isSuccess,setIsSuccess] = useState(false);
+    const [isError,setIsError] = useState(false);
+    const navigate = useNavigate();
+    const {login} = useAuth();
+
     const [errors, setErrors] = useState<{
         email: string,
         password: string,
@@ -48,33 +45,21 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
         password: "",
         confirmPassword: ""
     });
-    const errorStyle = {
-        color: "red",
-        marginTop: 2
 
-    }
-    const successStyle = {
-        color: "rgb(30, 30, 48)",
-        marginTop: 2
-
-    }
-    const closeMessageModal = () => {
-        setModalTitle("");
-        setModalMessage("")
-        setModalStyle({});
-        setisMessageModalOpen(false)
-
-    }
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name;
         const value = event.target.value;
         setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }))
         setInputs((prevInputs) => ({ ...prevInputs, [name]: value }))
     }
-
-    function delay(ms: any) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+    async function delay(): Promise<void> {
+        return new Promise<void>((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, 5000);
+        });
     }
+    
 
     const handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
@@ -109,19 +94,13 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
             })
             const json = await response.json();
             if (response.ok) {
-                Cookies.set('token', json.token)
                 login();
-                setModalTitle("Success");
-                setModalMessage("Account created successfully")
-                setModalStyle(successStyle);
+                Cookies.set('token', json.token)
                 setIsLoading(false)
-                setisMessageModalOpen(true)
-                await delay(3000);
-                setModalTitle("");
-                setModalMessage("")
-                setModalStyle({});
-                setisMessageModalOpen(false)
-                closeModal();
+                setIsSuccess(true);
+               delay();          
+               navigate("/")
+
             }
             if (!response.ok) {
                 if (json.errors.firstname) {
@@ -146,29 +125,11 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                     setIsLoading(false);
                     return;
                 }
-                setModalTitle("Error");
-                setModalMessage("A network error occured. Please try again later")
-                setModalStyle(errorStyle);
-                setIsLoading(false)
-                setisMessageModalOpen(true)
-                await delay(3000);
-                setModalTitle("");
-                setModalMessage("")
-                setModalStyle({});
-                setisMessageModalOpen(false)
                 setIsLoading(false)
             }
         } catch (error) {
-            setModalTitle("Error");
-            setModalMessage("A network error occured. Please try again later")
-            setModalStyle(errorStyle);
+
             setIsLoading(false)
-            setisMessageModalOpen(true)
-            await delay(3000);
-            setModalTitle("");
-            setModalMessage("")
-            setModalStyle({});
-            setisMessageModalOpen(false)
         }
 
 
@@ -179,7 +140,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                 <div className="col-md-12 register-container">
                     <form>
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "1%" }}>
-                            <Button fullWidth variant="outlined" style={{ color: 'white', textTransform: 'none' }}>
+                            <Button fullWidth variant="outlined" style={{ color: 'blue', textTransform: 'none' }}>
                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M17.64 9.172c0-.608-.054-1.192-.155-1.764H9v3.34h4.656a3.962 3.962 0 0 1-1.72 2.6v2.16h2.784c1.632-1.5 2.576-3.696 2.576-6.336z" fill="#FFC107" />
                                     <path d="M9 18c2.34 0 4.29-.78 5.736-2.116l-2.784-2.16c-.772.52-1.752.82-2.952.82-2.264 0-4.176-1.524-4.848-3.572H1.224v2.244A8.994 8.994 0 0 0 9 18z" fill="#FF3D00" />
@@ -191,7 +152,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                             </Button>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "1%" }}>
-                            <Button fullWidth variant="outlined" style={{ color: 'white', textTransform: 'none' }}>
+                            <Button fullWidth variant="outlined" style={{ color: 'blue', textTransform: 'none' }}>
                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.8029 2H5.19714C3.51857 2 2.13715 3.38143 2.13715 5.06V12.6657C2.13715 14.3443 3.51857 15.7257 5.19714 15.7257H9.17571V11.3643H7.28343V9.13143H9.17571V7.48743C9.17571 5.32571 10.8457 4.36 12.0943 4.36C12.6777 4.36 13.2189 4.42857 13.75 4.57714V6.72914H12.1909C10.9017 6.72914 10.5457 7.50286 10.5457 8.41029V9.13143H12.672L12.3017 11.3643H10.5457V15.7257H12.8029C14.4814 15.7257 15.8629 14.3443 15.8629 12.6657V5.06C15.8629 3.38143 14.4814 2 12.8029 2Z" fill="#1877F2" />
                                 </svg>
@@ -202,7 +163,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "3%" }} >
 
                             <EmailIcon sx={{ mr: 1, my: 0.5 }} />
-                            <TextField name="email" value={inputs.email} onChange={handleChange} sx={{ input: { color: "white" }, label: { color: "white" } }} required fullWidth variant="standard" label="Email" />
+                            <TextField name="email" value={inputs.email} onChange={handleChange} sx={{ input: { color: "blue" }, label: { color: "blue" } }} required fullWidth variant="standard" label="Email" />
                         </Box>
                         {errors.email.length > 0 &&
                             <Box sx={{ textAlign: "center", color: "red" }} >
@@ -211,7 +172,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                         }
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "3%" }}>
                             <AccountCircle sx={{ mr: 1, my: 0.5 }} />
-                            <TextField sx={{ input: { color: "white" }, label: { color: "white" } }}
+                            <TextField sx={{ input: { color: "blue" }, label: { color: "blue" } }}
                                 name="firstname" value={inputs.firstname} onChange={handleChange}
                                 required fullWidth variant="standard" label="Firstname" />
                         </Box>
@@ -222,7 +183,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                         }
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "3%" }}>
                             <AccountCircle sx={{ mr: 1, my: 0.5 }} />
-                            <TextField sx={{ input: { color: "white" }, label: { color: "white" } }}
+                            <TextField sx={{ input: { color: "blue" }, label: { color: "blue" } }}
                                 name="lastname" value={inputs.lastname} onChange={handleChange}
                                 required fullWidth variant="standard" label="Last name" />
                         </Box>
@@ -233,7 +194,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                         }
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "3%" }}>
                             <LockIcon sx={{ mr: 1, my: 0.5 }} />
-                            <TextField sx={{ input: { color: "white" }, label: { color: "white" } }} type="password"
+                            <TextField sx={{ input: { color: "blue" }, label: { color: "blue" } }} type="password"
                                 name="password" value={inputs.password} onChange={handleChange}
                                 required fullWidth variant="standard" label="Password" />
                         </Box>
@@ -244,7 +205,7 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                         }
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "3%" }}>
                             <LockIcon sx={{ mr: 1, my: 0.5 }} />
-                            <TextField sx={{ input: { color: "white" }, label: { color: "white" } }} type="password"
+                            <TextField sx={{ input: { color: "blue" }, label: { color: "blue" } }} type="password"
                                 name="confirmPassword" value={inputs.confirmPassword} onChange={handleChange}
                                 required fullWidth variant="standard" label="Confirm Password" />
                         </Box>
@@ -257,7 +218,9 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                             <Button variant="contained" fullWidth onClick={handleSubmit}>Sign up</Button>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "flex-end", margin: "1%" }}>
-                            <Button sx={{ backgroundColor: "red" }} variant="contained" fullWidth onClick={closeModal}>Cancel</Button>
+                            <Button sx={{ backgroundColor: "red" }} variant="contained" fullWidth>
+                                <Link to="/">Login</Link>
+                            </Button>
                         </Box>
 
                     </form>
@@ -284,36 +247,55 @@ export const Register: React.FC<RegisterProps> = ({ closeModal }) => {
                     <Typography sx={{ fontSize: "2em", color: "blue" }} variant="body1">Just a sec...</Typography>
                 </Box>
             )}
-
-
-            <Modal
-                open={isMessageModalOpen}
-                onClose={() => setisMessageModalOpen(false)}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={{
-                    position: 'absolute' as 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 400,
-                    bgcolor: "white",
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                    textAlign: "center"
-                }} >
-                    <Typography sx={modalStyle} id="modal-modal-title" variant="h6" component="h2">
-                        {modalTitle}
-                    </Typography>
-                    <Typography sx={modalStyle} id="modal-modal-description">
-                        {modalMessage}
-                    </Typography>
-                    <Divider />
-                    <Button sx={{ color: "rgb(30, 30, 48)", marginTop: '5vh' }} fullWidth variant="contained" onClick={closeMessageModal}>Close</Button>
+            {isSuccess && (
+                <Box
+                    sx={{
+                        position: 'fixed',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 9999,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        width: '100%',
+                        height: '100%',
+                    }}
+                >
+                    <Alert>
+                        <AlertTitle>Success</AlertTitle>
+                        Account created successfully
+                    </Alert>
                 </Box>
-            </Modal>
+            )}
+            {isError && (
+                <Box
+                    sx={{
+                        position: 'fixed',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 9999,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        width: '100%',
+                        height: '100%',
+                    }}
+                >
+                    <Alert>
+                        <AlertTitle>Error</AlertTitle>
+                        An error occured. Please try again
+                    </Alert>
+                </Box>
+            )}
+
+
+
         </div>
     )
 }

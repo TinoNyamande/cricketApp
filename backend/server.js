@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express")
 const authRoutes = require("./routes/auth")
 const productRoutes = require("./routes/product")
+const teamRoutes = require("./routes/team");
+const playerRoutes = require("./routes/player")
+const playerTeamRoutes = require("./routes/playerTeam")
 const mongoose = require("mongoose")
 const cors = require("cors")
 
@@ -29,3 +32,6 @@ app.use((req,res,next)=>{
 
 app.use("/api/auth",authRoutes)
 app.use("api/",productRoutes)
+app.use("/api/teams",teamRoutes);
+app.use("/api/players",playerRoutes)
+app.use("/api/playerteam",playerTeamRoutes)
