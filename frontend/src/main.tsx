@@ -2,12 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-import { AuthProvider } from './Components/context/authProvider.tsx'
+import { SelectPlayerProvider } from './context/selectedPlayer.tsx'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { AuthProvider } from './context/authContext.tsx'
 
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <SelectPlayerProvider>
+          <App />
+        </SelectPlayerProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 )
