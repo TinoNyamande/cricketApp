@@ -9,18 +9,20 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/home';
 import { Register } from './pages/register';
-import {Player} from './cards/player';
+import NewsHome from './live-updates/newsHome';
 import PickTeam from './cards/pickTeam';
 import AddPlayer from './admin/addplayer';
 import GetPlayers from './admin/getPlayers';
+import AddMatch from './admin/addMatch';
+import Stats from './live-updates/stats';
+import Teams from './live-updates/teams';
+import TeamDetails from './live-updates/teamdetails';
 
 interface Props {
 
@@ -47,42 +49,18 @@ function App(props: Props) {
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'start' }}>
-            <Link to="/">Home</Link>
+            <Link className='my-link-drawer'  to="/">Home</Link>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'start' }}>
-            <Link to="pickteam">Pick Team</Link>
+            <Link className='my-link-drawer'  to="pickteam">Fantasy IPL</Link>
           </ListItemButton>
         </ListItem>
+
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'start' }}>
-            <ListItemText primary="Points" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'start' }}>
-            <ListItemText primary="Transfers" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'start' }}>
-            <ListItemText primary="Tips" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'start' }}>
-            <ListItemText primary="Latest Cricket News" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'start' }}>
-            <ListItemText primary="Statistics" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'start' }}>
-            <ListItemText primary="More" />
+            <Link to="/" className='my-link-drawer'>More</Link>
           </ListItemButton>
         </ListItem>
       </List>
@@ -115,29 +93,15 @@ function App(props: Props) {
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Button sx={{ color: '#fff' }}>
-                <Link to="/">Home</Link>
+                <Link className='my-link' to="/">Home</Link>
               </Button>
               <Button sx={{ color: '#fff' }}>
-                <Link to="/pickteam">Pick team</Link>
-              </Button>
-              <Button sx={{ color: '#fff' }}>
-                Points
-              </Button>
-              <Button sx={{ color: '#fff' }}>
-                Transfers
-              </Button>
-              <Button sx={{ color: '#fff' }}>
-                Tips
-              </Button>
-              <Button sx={{ color: '#fff' }}>
-                Latest cricket news
-              </Button>
+                <Link className='my-link' to="/pickteam">Fantasy IPL</Link>
+              </Button>    
               <Button sx={{ color: '#fff' }}>
                 Statistics
               </Button>
-              <Button sx={{ color: '#fff' }}>
-                More
-              </Button>
+
             </Box>
           </Toolbar>
         </AppBar>
@@ -160,12 +124,15 @@ function App(props: Props) {
         </nav>
         <Box sx={{ backgroundColor: "azure", width: "100%", height: "100vh", marginTop: "10vh", overflow: "auto" }}>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<NewsHome/>} />
             <Route path="/signup" element={<Register />} />
-            <Route path="/player" element={<Player />} />
             <Route path="/pickteam" element={<PickTeam />} />
             <Route path="/admin/addplayer" element={<AddPlayer/>} />
             <Route path="/admin/allplayers" element={<GetPlayers/>} />
+            <Route path='/admin/addmatch' element={<AddMatch/>} />
+            <Route path="/stats" element={<Stats/>} />
+            <Route path="/teams" element={<Teams/>} />
+            <Route path="/teams/:team" element = {<TeamDetails/>} />
           </Routes>
         </Box>
       </Box>

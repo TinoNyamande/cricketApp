@@ -51,11 +51,21 @@ const getPlayersByType = async(req,res)=>{
            return res.status(404).json({error:"Not found"})
     }
 }
+const getPlayersByTeam = async (req,res) =>{
+    const {team} = req.params;
+    try {
+        const data = await playerModel.find({team:team});
+        return res.status(200).json({data});
+    }catch(error) {
+        return res.status(400).json({error:error.message})
+    }
+}
 
 module.exports = {
     addPlayer,
     getPlayers,
     deletePlayer,
-    getPlayersByType
+    getPlayersByType,
+    getPlayersByTeam
 }
 

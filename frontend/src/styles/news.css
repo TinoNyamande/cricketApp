@@ -1,0 +1,15 @@
+.my-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.my-col{
+    width:25% ;
+}
+.my-link {
+    text-decoration: none;
+    color:blue
+}
+.match-card {
+    border: solid 1px gray;
+}

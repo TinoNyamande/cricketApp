@@ -5,6 +5,7 @@ const productRoutes = require("./routes/product")
 const teamRoutes = require("./routes/team");
 const playerRoutes = require("./routes/player")
 const playerTeamRoutes = require("./routes/playerTeam")
+const matchesRoutes = require("./routes/match")
 const mongoose = require("mongoose")
 const cors = require("cors")
 
@@ -35,3 +36,4 @@ app.use("api/",productRoutes)
 app.use("/api/teams",teamRoutes);
 app.use("/api/players",playerRoutes)
 app.use("/api/playerteam",playerTeamRoutes)
+app.use("/api/matches",matchesRoutes)
