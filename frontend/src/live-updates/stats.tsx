@@ -1,10 +1,13 @@
 import NewsMain from "./news-main";
+import "./../styles/news.css"
 
-export default function Stats () {
+export default function Stats() {
     return (
         <>
-        <NewsMain/>
-        <h2>Stats Page</h2>
+            <NewsMain />
+            <div className="container-row">
+                <h2>Stats Page</h2>
+            </div>
         </>
     )
 }

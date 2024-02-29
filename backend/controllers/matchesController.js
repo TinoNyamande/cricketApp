@@ -1,8 +1,10 @@
+const { default: mongoose } = require("mongoose");
 const matchesModel = require("./../models/matchesModel");
 
 const addMatch = async (req, res) => {
-  const { homeTeam, awayTeam, kickoffTime, kickoffDate, matchNumber,venue } =
+  const { homeTeam, awayTeam, kickoffTime, kickoffDate, matchNumber, venue } =
     req.body;
+  console.log(kickoffTime);
   try {
     const match = await matchesModel.create({
       homeTeam,
@@ -10,7 +12,7 @@ const addMatch = async (req, res) => {
       kickoffTime,
       kickoffDate,
       matchNumber,
-      venue
+      venue,
     });
     return res.status(200).json({ message: "Match added successfully" });
   } catch (error) {
@@ -27,7 +29,21 @@ const getMatches = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
+const getMatch = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid Id" });
+  }
+  try {
+    const match = await matchesModel.findById(id);
+    return res.status(200).json({data:match});
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({error:error.message});
+  }
+};
 module.exports = {
-    addMatch,
-    getMatches
-}
+  addMatch,
+  getMatches,
+  getMatch,
+};

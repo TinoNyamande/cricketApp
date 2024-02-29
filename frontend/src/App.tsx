@@ -23,6 +23,11 @@ import AddMatch from './admin/addMatch';
 import Stats from './live-updates/stats';
 import Teams from './live-updates/teams';
 import TeamDetails from './live-updates/teamdetails';
+import MatchDetails from './live-updates/matchdetails';
+import FantasyHome from './fantasy/fantasy-home';
+import NewTeam from './fantasy/newteam';
+import { useAuth } from './context/authContext';
+import Cookies from "js-cookie"
 
 interface Props {
 
@@ -32,6 +37,15 @@ interface Props {
 const drawerWidth = 240;
 
 function App(props: Props) {
+  const { isLoggedIn, login, logout } = useAuth();
+  React.useEffect(() => {
+    const tokenExists = !!Cookies.get('token');
+    if (!isLoggedIn && tokenExists) {
+      login();
+    } else if (isLoggedIn && !tokenExists) {
+      logout();
+    }
+  })
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -49,12 +63,12 @@ function App(props: Props) {
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'start' }}>
-            <Link className='my-link-drawer'  to="/">Home</Link>
+            <Link className='my-link-drawer' to="/">Home</Link>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'start' }}>
-            <Link className='my-link-drawer'  to="pickteam">Fantasy IPL</Link>
+            <Link className='my-link-drawer' to="fantasyteam">Fantasy IPL</Link>
           </ListItemButton>
         </ListItem>
 
@@ -93,11 +107,11 @@ function App(props: Props) {
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Button sx={{ color: '#fff' }}>
-                <Link className='my-link' to="/">Home</Link>
+                <Link style={{ color: "white" }} className='my-link' to="/">Home</Link>
               </Button>
               <Button sx={{ color: '#fff' }}>
-                <Link className='my-link' to="/pickteam">Fantasy IPL</Link>
-              </Button>    
+                <Link style={{ color: "white" }} className='my-link' to="/fantasyteam">Fantasy IPL</Link>
+              </Button>
               <Button sx={{ color: '#fff' }}>
                 Statistics
               </Button>
@@ -112,7 +126,7 @@ function App(props: Props) {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
             sx={{
               display: { xs: 'block', sm: 'none' },
@@ -124,15 +138,18 @@ function App(props: Props) {
         </nav>
         <Box sx={{ backgroundColor: "azure", width: "100%", height: "100vh", marginTop: "10vh", overflow: "auto" }}>
           <Routes>
-            <Route path='/' element={<NewsHome/>} />
+            <Route path='/' element={<NewsHome />} />
             <Route path="/signup" element={<Register />} />
             <Route path="/pickteam" element={<PickTeam />} />
-            <Route path="/admin/addplayer" element={<AddPlayer/>} />
-            <Route path="/admin/allplayers" element={<GetPlayers/>} />
-            <Route path='/admin/addmatch' element={<AddMatch/>} />
-            <Route path="/stats" element={<Stats/>} />
-            <Route path="/teams" element={<Teams/>} />
-            <Route path="/teams/:team" element = {<TeamDetails/>} />
+            <Route path="/admin/addplayer" element={<AddPlayer />} />
+            <Route path="/admin/allplayers" element={<GetPlayers />} />
+            <Route path='/admin/addmatch' element={<AddMatch />} />
+            <Route path="/stats" element={<Stats />} />
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/teams/:team" element={<TeamDetails />} />
+            <Route path="/match/:id" element={<MatchDetails />} />
+            <Route path="fantasyteam" element={<FantasyHome />} />
+            <Route path='fantasy/newteam' element={<NewTeam />} />
           </Routes>
         </Box>
       </Box>

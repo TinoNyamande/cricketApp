@@ -1,9 +1,9 @@
-import NewsMain from "./news-main";
+import NewsMain from "../live-updates/news-main";
 import { Box, Divider, Typography } from "@mui/material"
 import { Link } from "react-router-dom";
 import "./../styles/news.css"
 
-export default function Teams() {
+export default function TeamsList() {
     return (
         <>
             <NewsMain />

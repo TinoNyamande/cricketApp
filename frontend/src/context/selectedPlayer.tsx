@@ -3,7 +3,7 @@ import React, { PropsWithChildren, createContext, useContext, useState } from "r
 
 interface Player {
     team: string,
-    name: string,
+    fullName: string,
     price: number,
     type: string,
 
@@ -33,22 +33,22 @@ const PlayerContext = createContext<{
     setPlayer: (player: Player, playerNumber: number) => void
 }>({
 
-    firstPlayer: { name: "", team: "", type: "", price: 0 },
-    secondPlayer: { name: "", team: "", type: "", price: 0 },
-    thirdPlayer: { name: "", team: "", type: "", price: 0 },
-    fourthPlayer: { name: "", team: "", type: "", price: 0 },
-    fifthPlayer: { name: "", team: "", type: "", price: 0 },
-    sixthPlayer: { name: "", team: "", type: "", price: 0 },
-    seventhPlayer: { name: "", team: "", type: "", price: 0 },
-    eighthPlayer: { name: "", team: "", type: "", price: 0 },
-    ninthPlayer: { name: "", team: "", type: "", price: 0 },
-    tenthPlayer: { name: "", team: "", type: "", price: 0 },
-    elevenPlayer: { name: "", team: "", type: "", price: 0 },
-    twelvePlayer: { name: "", team: "", type: "", price: 0 },
-    thirteenPlayer: { name: "", team: "", type: "", price: 0 },
-    fourteenPlayer: { name: "", team: "", type: "", price: 0 },
-    fifteenPlayer: { name: "", team: "", type: "", price: 0 },
-    sixteenPlayer: { name: "", team: "", type: "", price: 0 },
+    firstPlayer: { fullName: "", team: "", type: "", price: 0 },
+    secondPlayer: { fullName: "", team: "", type: "", price: 0 },
+    thirdPlayer: { fullName: "", team: "", type: "", price: 0 },
+    fourthPlayer: { fullName: "", team: "", type: "", price: 0 },
+    fifthPlayer: { fullName: "", team: "", type: "", price: 0 },
+    sixthPlayer: { fullName: "", team: "", type: "", price: 0 },
+    seventhPlayer: { fullName: "", team: "", type: "", price: 0 },
+    eighthPlayer: { fullName: "", team: "", type: "", price: 0 },
+    ninthPlayer: { fullName: "", team: "", type: "", price: 0 },
+    tenthPlayer: { fullName: "", team: "", type: "", price: 0 },
+    elevenPlayer: { fullName: "", team: "", type: "", price: 0 },
+    twelvePlayer: { fullName: "", team: "", type: "", price: 0 },
+    thirteenPlayer: { fullName: "", team: "", type: "", price: 0 },
+    fourteenPlayer: { fullName: "", team: "", type: "", price: 0 },
+    fifteenPlayer: { fullName: "", team: "", type: "", price: 0 },
+    sixteenPlayer: { fullName: "", team: "", type: "", price: 0 },
     currentPlayer:0,
     numberOfPlayers:0,
     playerAddedEvent:()=>{},
@@ -58,22 +58,22 @@ const PlayerContext = createContext<{
 
 })
 export const SelectPlayerProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-    const [firstPlayer, setFirstPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [secondPlayer, setSecondPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [thirdPlayer, setThirdPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [fourthPlayer, setFourthPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [fifthPlayer, setFifthPlyer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [sixthPlayer, setSixthPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [seventhPlayer, setSeventhPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [eighthPlayer, setEighthPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [ninthPlayer, setNinthPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [tenthPlayer, setTenthPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [elevenPlayer, setElevenPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [twelvePlayer, setTwelvePlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [thirteenPlayer, setThirteenPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [fourteenPlayer, setFourteenPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [fifteenPlayer, setFifteenPlayer] = useState({ name: "", team: "", type: "", price: 0 });
-    const [sixteenPlayer, setSixteenPlayer] = useState({ name: "", team: "", type: "", price: 0 })
+    const [firstPlayer, setFirstPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [secondPlayer, setSecondPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [thirdPlayer, setThirdPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [fourthPlayer, setFourthPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [fifthPlayer, setFifthPlyer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [sixthPlayer, setSixthPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [seventhPlayer, setSeventhPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [eighthPlayer, setEighthPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [ninthPlayer, setNinthPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [tenthPlayer, setTenthPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [elevenPlayer, setElevenPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [twelvePlayer, setTwelvePlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [thirteenPlayer, setThirteenPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [fourteenPlayer, setFourteenPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [fifteenPlayer, setFifteenPlayer] = useState({ fullName: "", team: "", type: "", price: 0 });
+    const [sixteenPlayer, setSixteenPlayer] = useState({ fullName: "", team: "", type: "", price: 0 })
     const [currentPlayer,setCurrentPlayer] = useState(0);
     const[numberOfPlayers,setNumberOfPlayers] = useState(0);
 
@@ -100,7 +100,7 @@ export const SelectPlayerProvider: React.FC<PropsWithChildren<{}>> = ({ children
                 imagePath = "/public/raw images/Lucknow Super Giants.jpg";
                 break;
             case "Mumbai Indians" :
-                imagePath ="/public/raw images/Mumbai Indians.jpg";
+                imagePath ="/public/raw images/Mumbai Indians .jpg";
                 break;
             case "Punjab Kings":
                 imagePath = "/public/raw images/Punjab Kings.jpg";
@@ -112,13 +112,12 @@ export const SelectPlayerProvider: React.FC<PropsWithChildren<{}>> = ({ children
                 imagePath= "/public/raw images/Royal Challengers Bangalore.jpg";
                 break;
             case "Sunrisers Hyderabad" :
-                imagePath="/public/raw images/Sunrisers Hyderabad.jpg";
+                imagePath="/public/raw images/Sunrisers Hyderbad.jpg";
                 break;
         }
         return imagePath;
     }
     const setPlayer= (player: Player, playerNumber: number)=> {
-        console.log(player,playerNumber)
         switch (playerNumber) {
             case 1 :
                 setFirstPlayer(player);
@@ -138,6 +137,7 @@ export const SelectPlayerProvider: React.FC<PropsWithChildren<{}>> = ({ children
                 break;
             case 5:
                 setFifthPlyer(player);
+                playerAddedEvent();
                 break;
             case 6:
                 setSixthPlayer(player);

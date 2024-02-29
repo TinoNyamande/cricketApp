@@ -100,7 +100,7 @@ export const PlayersList:React.FC<PlayersListProps> = ({closeModal}) => {
         <List sx={{ backgroundColor: "blue", color: "white", overflow: "auto", width: "70%",marginLeft:"auto",marginRight:"auto" }}>
             {playersList.map((player) => (
                 <ListItem sx={{ justifyContent: "space-between",background:"lightBlue",margin:"1%",padding:"0%" }}>
-                    <Button fullWidth sx={{justifyContent: "space-between",backgroundColor:"pink"}} 
+                    <Button fullWidth sx={{justifyContent: "space-between"}} 
                     onClick={()=>handleClick(player,currentPlayer)}
                     >
                      <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between",width:"100%"}}>

@@ -7,7 +7,7 @@ export default function AddMatch() {
         homeTeam: string|null, 
         awayTeam: string | null,
         venue: string, 
-        kickoffTime: Date,
+        kickoffTime: string,
         kickoffDate:Date,
         matchNumber:Number
       }
@@ -15,7 +15,7 @@ export default function AddMatch() {
             homeTeam: "",
             awayTeam: "", 
             venue: "",
-            kickoffTime:new Date(), 
+            kickoffTime:"", 
             kickoffDate:new Date(),
             matchNumber: 0 
         })
@@ -26,10 +26,19 @@ export default function AddMatch() {
         const value = event.target.value;
         setInputs((prevInputs) => ({ ...prevInputs, [name]: value }))
     }
-    const handleTimeChange = (event:React.ChangeEvent<HTMLInputElement>) =>{
+    // const handleTimeChange = (event:React.ChangeEvent<HTMLInputElement>) =>{
+    //     const selectedTime = event.target.value;
+    //     setInputs((prevInputs)=>({...prevInputs , kickoffTime:new Date('1970-01-01T' + selectedTime)}))
+    // }
+    const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedTime = event.target.value;
-        setInputs((prevInputs)=>({...prevInputs , kickoffTime:new Date('1970-01-01T' + selectedTime)}))
+        const [hours, minutes] = selectedTime.split(":");
+        const currentTime = new Date();
+        currentTime.setUTCHours(parseInt(hours, 10));
+        currentTime.setUTCMinutes(parseInt(minutes, 10));
+        setInputs((prevInputs) => ({ ...prevInputs, kickoffTime: currentTime.toISOString() }));
     }
+    
     const handleHomeTeamDropdown = (event: React.ChangeEvent<{}>, value: string | null) => {
         setInputs((prevInputs) => ({ ...prevInputs, homeTeam: value }))
     }

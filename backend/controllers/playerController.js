@@ -29,30 +29,40 @@ const deletePlayer = async(req,res) =>{
 }
 
 const getPlayersByType = async(req,res)=>{
-    const {type} = req.body;
-    switch(type) {
-        case "Batsman" :
-            const batsmen = playerModel.find({playerType:"Batsman"})
-            return res.status(200).json({data:batsmen})
-            break
-        case "Bowler" :
-            const bowlers = playerModel.find({playerType:"Bowler"})
-            return res.status(200).json({data:bowlers})
-            break
-        case "All Rounder" :
-            const allRounders = playerModel.find({playerType:"All Rounder"})
-            return res.status(200).json({data:allRounders})
-            break;
-        case "Wicket Keeper" :
-            const keeper = playerModel.find({playerType:"Wicket Keeper"})
-            return res.status(200).json({data:keeper})
-            break
-        default :
-           return res.status(404).json({error:"Not found"})
-    }
+    const {type} = req.params;
+    console.log(type)
+try {
+    const players = await playerModel.find({playerType:type});
+    return res.status(200).json({data:players})
+
+}catch(error) {
+    console.log(error)
+    
+}
+    // switch(type) {
+    //     case "Batsman" :
+    //         const batsmen = playerModel.find({playerType:"Batsman"})
+    //         return res.status(200).json({data:batsmen})
+    //         break
+    //     case "Bowler" :
+    //         const bowlers = playerModel.find({playerType:"Bowler"})
+    //         return res.status(200).json({data:bowlers})
+    //         break
+    //     case "All Rounder" :
+    //         const allRounders = playerModel.find({playerType:"All Rounder"})
+    //         return res.status(200).json({data:allRounders})
+    //         break;
+    //     case "Wicket Keeper" :
+    //         const keeper = playerModel.find({playerType:"Wicket Keeper"})
+    //         return res.status(200).json({data:keeper})
+    //         break
+    //     default :
+    //        return res.status(404).json({error:"Not found"})
+    // }
 }
 const getPlayersByTeam = async (req,res) =>{
     const {team} = req.params;
+    console.log(team)
     try {
         const data = await playerModel.find({team:team});
         return res.status(200).json({data});
