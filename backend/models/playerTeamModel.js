@@ -9,52 +9,58 @@ const playerTeam = new Schema({
   transfers:{
     type:Number
 },
-  playerOne: {
+balance:{
+  type:Number
+},
+userId:{
+  type:String
+},
+firstPlayer: {
     type: String,
   },
-  playerTwo: {
+  secondPlayer: {
     type: String,
   },
-  playerThree: {
+  thirdPlayer: {
     type: String,
   },
-  playerFour: {
+  fourthPlayer: {
     type: String,
   },
-  playerFive: {
+  fifthPlayer: {
     type: String,
   },
-  playerSix: {
+  sixthPlayer: {
     type: String,
   },
-  playerSeven: {
+  seventhPlayer: {
     type: String,
   },
-  playerEight: {
+  eighthPlayer: {
     type: String,
   },
-  playerNine: {
+  ninthPlayer: {
     type: String,
   },
-  playerTen: {
+  tenthPlayer: {
     type: String,
   },
-  playerEleven: {
+  elevenPlayer: {
     type: String,
   },
-  playerTwelve: {
+  twelvePlayer: {
     type: String,
   },
-  playerThirteen: {
+  thirteenPlayer: {
     type: String,
   },
-  playerFourteen: {
+  fourteenPlayer: {
     type: String,
   },
-  playerFifteen: {
+  fifteenPlayer: {
     type: String,
   },
-  playerSixteen: {
+  sixteenPlayer: {
     type: String,
   },
 });

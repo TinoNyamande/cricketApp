@@ -1,0 +1,15 @@
+Edit players
+Player Profile
+Stats
+Match Details
+Live
+Results
+Highlights
+News
+
+edit players
+fixtures
+transfers
+checkbalance
+prevent reselect
+prevent overbudget

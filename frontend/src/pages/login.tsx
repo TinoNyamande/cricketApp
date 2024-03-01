@@ -82,8 +82,8 @@ export const Login = () => {
             });
             const json = await response.json();
             if (response.ok) {
-                console.log("logged in")
                 Cookies.set('token', json.token)
+                setIsLoading(false)
  
             }
             if (!response.ok) {
@@ -168,7 +168,7 @@ export const Login = () => {
                         <Box sx={{margin:"3%",textAlign:"center"}}>
                             <Typography sx={{fontWeight:"bold"}}>Dont have an account</Typography>
                             <Typography>Dont miss out on the action</Typography>
-                            <Link to="signup">Sign up now</Link>
+                            <Link to="/signup">Sign up now</Link>
                         </Box>
 
                     </form>
